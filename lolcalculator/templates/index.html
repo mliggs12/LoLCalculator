@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Lol Champion Statistics & Abilities</title>
+</head>
+<body>
+    <div>
+        <form action="" method="get">
+                Champion:  <input type="text" name="champion">
+                <input type="submit" value="Get Stats">
+        </form>
+    </div>
+    <div>
+        <h1>{{ champion }}</h1>
+        <h2>Base statistics</h2>
+        <h4>Attack damage: {{ stats.ad }} (+ {{ stats.ad_g}} )</h4>
+        <h4>Health: {{ stats.hp }} (+ {{ stats.hp_g }})</h4>
+        <h4>Armor: {{ stats.ar }} (+ {{ stats.ar_g }})</h4>
+        <h4>Magic resist.: {{ stats.mr }} (+ {{ stats.mr_g }})</h4>
+    </div>
+    <div>
+        <h2>Abilities</h2>
+        {% for key in abilities %}
+            <h3>{{ key }}</h3>
+            {% for part in abilities[key] %}
+                <h3>{{ part.name }}</h3>
+                {% for effect in part.effects %}
+                    <h5>{{ effect.description }}</h5>
+                    {% if effect.leveling %}
+                        {% for attr in effect.leveling %}
+                            <h4>{{ attr.attribute }}</h4>
+                            {% for mod in attr.modifiers %}
+                                <h5>{{ mod }}</h5>
+                            {% endfor %}
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+</body>
+</html>
